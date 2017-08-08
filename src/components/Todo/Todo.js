@@ -2,35 +2,33 @@ import React from 'react';
 import './Todo.css';
 
 export default class Todo extends React.Component  {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // из сторы кладу значение, которое прилетает из инпута
+    state = {
+            // put value from store, which came from input
             value: this.props.text,
             isEditing: false
-        }
-    }
-    // здесь вызывается метод из сторы если удалять
+    };
+
+    // it is method from store for deleting
     deleteTodo = () => {
         this.props.deleteTodo(this.props.id)
     };
 
-    // метод для переворота флага, в зависимости от флага
-    // отображается или с кнопокй редактировать или с кнопкой сохранить
-    editTodo = () => {
+    // flag for rendering
+    // false - rendering 'delete', 'edit' buttons
+    // true - rendering 'save' button
+    editTodo = () =>
         this.setState((prevState, props) => ({
             isEditing: !prevState.isEditing
-        }))
-    };
+        }));
 
-    // отрабатывает на любое изменнение в инпуте что бы потом отдать кнопке сохранить
-    onChangeHandler = (e) => {
+    // works for any change in input, then gives  to button 'save'
+
+    onChangeHandler = (e) =>
         this.setState({
             value: e.target.value
-        })
-    };
+        });
 
-    // для того что бы по нажатию на кнопку, сохранилось то что мы ввели
+    // click on button save all what we are written
     saveTodo = () => {
         // проверка что бы пустую не сохранял
         if(!this.state.value) return null;
@@ -40,12 +38,10 @@ export default class Todo extends React.Component  {
         }));
     };
 
-
-
     render(){
-        let edit = this.state.isEditing;
+        const edit = this.state.isEditing;
         return(
-          // если кнопка edit нажата
+          // if button 'edit' is active
           edit ?
               <li>
                   <input
@@ -61,7 +57,7 @@ export default class Todo extends React.Component  {
               </li>
 
               :
-              // если кнопка edit не нажата
+              // if button 'edit' doesn't active
               <li className="todo-item" ref={(li) => {this.li = li}}>{this.state.value}
                   <button
                       className="btn delete"
@@ -76,4 +72,3 @@ export default class Todo extends React.Component  {
         )
     }
 }
-

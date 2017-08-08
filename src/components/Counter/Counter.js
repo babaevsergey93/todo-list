@@ -1,5 +1,5 @@
 import React from 'react';
-import { increment, decrement } from '../actions/PageActions';
+import { increment, decrement } from '../../actions/PageActions';
 import { connect } from 'react-redux';
 import './Counter.css';
 
